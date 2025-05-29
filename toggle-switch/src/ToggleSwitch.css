@@ -7,10 +7,14 @@ body {
 
 .app-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   transition: background-color 0.3s ease;
+  border: 4px solid black; 
+  box-sizing: border-box;
+  position: relative;
 }
 
 .app-container.light {
@@ -55,4 +59,123 @@ body {
 .slider-light {
   background-color: #fff;
   color: #000;
+}
+
+.status-text {
+  font-size: 24px;
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+  animation: bounce 1s ease infinite alternate;
+  text-align: center;
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-5px); }
+}
+
+.app-container.light .status-text {
+  color: #000; /* Black text when background is white */
+}
+
+.app-container.dark .status-text {
+  color: #fff; /* White text when background is black */
+}
+
+.dare-text {
+  margin-top: 15px;
+  font-size: 18px;
+  color: #555;
+  animation: pulse 1s ease infinite alternate;
+  text-align: center;
+}
+
+@keyframes pulse {
+  from { opacity: 0.7; }
+  to { opacity: 1; }
+}
+
+.app-container::before,
+.app-container::after,
+.app-container .ghost-top,
+.app-container .ghost-bottom,
+.app-container .ghost-tl,
+.app-container .ghost-tr,
+.app-container .ghost-bl,
+.app-container .ghost-br {
+  position: absolute;
+  font-size: 24px;
+  pointer-events: none; /* so ghosts don’t block toggle clicks */
+}
+
+.app-container .ghost-tl {
+  top: 10px;
+  left: 10px;
+  content: "👻";
+}
+
+.app-container .ghost-tr {
+  top: 10px;
+  right: 10px;
+  content: "👻";
+}
+
+.app-container .ghost-bl {
+  bottom: 10px;
+  left: 10px;
+  content: "👻";
+}
+
+.app-container .ghost-br {
+  bottom: 10px;
+  right: 10px;
+  content: "👻";
+}
+
+.app-container .ghost-top {
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  content: "👻";
+}
+
+.app-container .ghost-bottom {
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  content: "👻";
+}
+
+.app-container .ghost-left-center,
+.app-container .ghost-right-center {
+  position: absolute;
+  font-size: 24px;
+  pointer-events: none;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.app-container .ghost-left-center {
+  left: 5px;
+}
+
+.app-container .ghost-right-center {
+  right: 5px;
+}
+
+@keyframes float-ghosts {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(5deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+.ghost-tl,
+.ghost-tr,
+.ghost-bl,
+.ghost-br,
+.ghost-top,
+.ghost-bottom,
+.ghost-left-center,
+.ghost-right-center {
+  animation: float-ghosts 2s ease-in-out infinite;
 }
